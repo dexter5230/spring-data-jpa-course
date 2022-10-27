@@ -22,9 +22,15 @@ public class Application {
         return args -> {
             generateRandomStudents(studentRepository);
             //sorting(studentRepository);
+            PageRequest pageRequest1 = PageRequest.of(0, 10, Sort.by("lastName").descending());
+            Page<Student> page1 = studentRepository.findAll(pageRequest1);
+            System.out.println(page1);
+            Sort sort = Sort.by("dateOfBirth").ascending().and(Sort.by("lastName").descending());
+            studentRepository.findAll(sort).forEach(student -> System.out.println(student.getDateOfBirth()));
             PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("firstName").ascending());
             Page<Student> page = studentRepository.findAll(pageRequest);
             System.out.println(page);
+
         };
     }
 
