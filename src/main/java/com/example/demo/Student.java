@@ -2,7 +2,8 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
-import java.time.LocalDate;
+import java.util.Date;
+
 @Entity(name = "Student")
 @Table (name = "student",
         uniqueConstraints = @UniqueConstraint(name = "student_email_unique", columnNames = {"email"})
@@ -17,16 +18,16 @@ public class Student {
     String firstName;
     @Column (name = "last_name", nullable = false,columnDefinition = "TEXT")
     String lastName;
-    @Column (name = "date_of_birth", nullable = false)
-    LocalDate date_of_birth;
+    @Column (name = "date_of_birth", nullable = false, columnDefinition = "Date")
+    Date dateOfBirth;
     @Column (name = "email", nullable = false, columnDefinition = "TEXT")
     @Email
     String email;
 
-    public Student(String firstName, String lastName, LocalDate date_of_birth, String email) {
+    public Student(String firstName, String lastName, Date dateOfBirth, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.date_of_birth = date_of_birth;
+        this.dateOfBirth = dateOfBirth;
         this.email = email;
     }
 
@@ -57,12 +58,12 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public LocalDate getDate_of_birth() {
-        return date_of_birth;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setDate_of_birth(LocalDate date_of_birth) {
-        this.date_of_birth = date_of_birth;
+    public void setDateOfBirth(Date dateOfBirth)  {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getEmail() {
@@ -71,5 +72,16 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", date_of_birth=" + dateOfBirth +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
