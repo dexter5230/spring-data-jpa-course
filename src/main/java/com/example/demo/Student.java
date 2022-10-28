@@ -23,6 +23,10 @@ public class Student {
     @Column (name = "email", nullable = false, columnDefinition = "TEXT")
     @Email
     String email;
+    @OneToOne(mappedBy = "student", orphanRemoval = true)
+    private StudentAccount studentAccount;
+    @OneToOne(mappedBy = "student", orphanRemoval = true)
+    private StudentIdCard studentIdCard;
 
     public Student(String firstName, String lastName, Date dateOfBirth, String email) {
         this.firstName = firstName;

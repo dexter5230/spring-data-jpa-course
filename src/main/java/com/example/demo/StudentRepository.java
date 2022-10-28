@@ -24,4 +24,9 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("DELETE FROM Student n WHERE n.studentId = :id")
     void deleteStudentById(@Param("id") Long id);
 
+    @Transactional
+    @Modifying
+    @Query("UPDATE Student u SET u.email = ?1 WHERE u.studentId = ?2")
+    void updateStudentById(String email, Long id);
+
 }
