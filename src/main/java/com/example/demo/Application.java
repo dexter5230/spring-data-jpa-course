@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 public class Application {
@@ -15,7 +16,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
     @Bean
-    CommandLineRunner commandLineRunner(StudentRepository studentRepository, StudentCardRepository studentCardRepository, Repository studentAccountRepository) {
+    CommandLineRunner commandLineRunner(StudentRepository studentRepository, StudentCardRepository studentCardRepository, Repository studentAccountRepository, BookRepository bookRepository) {
         return args -> {
 //            generateRandomStudents(studentRepository);
 //            //sorting(studentRepository);
@@ -38,14 +39,26 @@ public class Application {
                     date,
                     email
             );
+            student.addBook(new Book("I want to be a better person"));
+            student.addBook(new Book("I want to have a job"));
+            student.addIdCard(new StudentIdCard("123456789"));
+            student.addAccount(new StudentAccount("qwer1234", student.getEmail()));
+            //StudentIdCard studentIdCard =  new StudentIdCard("123456789",student);
+           // StudentAccount studentAccount = new StudentAccount("qwer1234",student);
+            studentRepository.save(student);
+            studentRepository.findById(1L).ifPresent(s-> {
+                System.out.println("FetchType is lazy...");
+                List<Book> books = student.getBooks();
+                books.forEach(book -> {
+                    System.out.println(book.getBookName());
+                });
+            });
+//            bookRepository.save(new Book("how to be a jerk", student));
 
-           StudentIdCard studentIdCard =  new StudentIdCard("123456789", student);
-
-            StudentAccount studentAccount = new StudentAccount("qwer1234", student);
-            studentAccountRepository.save(studentAccount);
-            studentCardRepository.save(studentIdCard);studentRepository.save(student);
-            studentRepository.updateStudentById("wujiaxuanau@gmail.com", 1l);
-            studentAccountRepository.updateStudentAccountById(studentRepository.findById(1l).get().email, 1l);
+//            studentAccountRepository.save(studentAccount);
+//            studentCardRepository.save(studentIdCard);
+            //studentRepository.updateStudentById("wujiaxuanau@gmail.com", 1l);
+            //studentAccountRepository.updateStudentAccountById(studentRepository.findById(1l).get().email, 1l);
         };
     }
 

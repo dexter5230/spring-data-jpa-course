@@ -18,13 +18,17 @@ public class StudentIdCard {
     @Column(name = "card_number", updatable = false, length = 15)
     private String cardNumber;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "student_id",
                 referencedColumnName = "student_id")
     private Student student;
 
     public Long getCardId() {
         return cardId;
+    }
+
+    public StudentIdCard(String cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
     public String getCardNumber() {
@@ -44,6 +48,9 @@ public class StudentIdCard {
         this.cardNumber = cardNumber;
     }
 
+    public void setStudent(Student student) {
+        this.student = student;
+    }
 
     public StudentIdCard(String cardNumber, Student student) {
         this.cardNumber = cardNumber;

@@ -14,7 +14,7 @@ public class StudentAccount {
 
     @Column (name = "password", nullable = false, columnDefinition = "TEXT")
     private String password;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.ALL})
     @MapsId
     Student student;
 
@@ -22,6 +22,12 @@ public class StudentAccount {
         this.password = password;
         this.student = student;
         this.accountName = student.getEmail();
+
+    }
+
+    public StudentAccount(String password, String email) {
+        this.accountName = email;
+        this.password = password;
 
     }
 

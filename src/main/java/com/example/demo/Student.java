@@ -2,7 +2,9 @@ package com.example.demo;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "Student")
 @Table (name = "student",
@@ -23,10 +25,16 @@ public class Student {
     @Column (name = "email", nullable = false, columnDefinition = "TEXT")
     @Email
     String email;
-    @OneToOne(mappedBy = "student", orphanRemoval = true)
+    @OneToOne(mappedBy = "student", orphanRemoval = true,cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private StudentAccount studentAccount;
-    @OneToOne(mappedBy = "student", orphanRemoval = true)
+    @OneToOne(mappedBy = "student", orphanRemoval = true,cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private StudentIdCard studentIdCard;
+    @OneToMany(
+            mappedBy = "student",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE}
+    )
+    private List<Book>  books = new ArrayList<>();
 
     public Student(String firstName, String lastName, Date dateOfBirth, String email) {
         this.firstName = firstName;
@@ -37,7 +45,27 @@ public class Student {
 
     public Student() {
     }
+    public void addIdCard (StudentIdCard studentIdCard) {
+        this.studentIdCard = studentIdCard;
+        studentIdCard.setStudent(this);
+    }
+    public void addAccount (StudentAccount studentAccount) {
+        studentAccount.setStudent(this);
+        this.studentAccount = studentAccount;
 
+    }
+    public void addBook(Book book) {
+        if (!this.books.contains(book)) {
+            this.books.add(book);
+            book.setStudent(this);
+        }
+    }
+    public void removeBook(Book book) {
+        if (this.books.contains(book)) {
+            this.books.remove(book);
+            book.setStudent(null);
+        }
+    }
     public Long getStudentId() {
         return studentId;
     }
@@ -76,6 +104,18 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public StudentAccount getStudentAccount() {
+        return studentAccount;
+    }
+
+    public StudentIdCard getStudentIdCard() {
+        return studentIdCard;
+    }
+
+    public List<Book> getBooks() {
+        return books;
     }
 
     @Override
