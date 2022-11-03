@@ -19,10 +19,11 @@ public class Course {
     @Column (name = "department", nullable = false, columnDefinition = "TEXT")
     private String department;
 
-    @ManyToMany(
-            mappedBy = "courses"
+    @OneToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            mappedBy = "course"
     )
-    private List<Student> students = new ArrayList<>();
+    private List<Enrolment> enrolments = new ArrayList<>();
 
     public Course(String courseName, String department) {
         this.courseName = courseName;
@@ -55,9 +56,15 @@ public class Course {
     public void setDepartment(String department) {
         this.department = department;
     }
-
-    public List<Student> getStudents() {
-        return students;
+    public void addEnrolment(Enrolment enrolment) {
+        if (!enrolments.contains(enrolment)) {
+            enrolments.add(enrolment);
+        }
+    }
+    public void removeEnrolment(Enrolment e) {
+        if (enrolments.contains(e)) {
+            enrolments.remove(e);
+        }
     }
 
     @Override

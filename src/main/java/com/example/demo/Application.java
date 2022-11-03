@@ -43,8 +43,11 @@ public class Application {
             student.addBook(new Book("I want to have a job"));
             student.addIdCard(new StudentIdCard("123456789"));
             student.addAccount(new StudentAccount("qwer1234", student.getEmail()));
-            student.enrolToCourse(new Course("Computer Science", "IT"));
-            student.enrolToCourse(new Course("Spring Date JPA", "IT"));
+            student.addEnrolment(new Enrolment(new EnrolmentId(1L, 1L),student, new Course("Computer Science", "IT")));
+            student.addEnrolment(new Enrolment(new EnrolmentId(1L, 2L),student, new Course("Spring Date JPA", "IT")));
+
+//            student.enrolToCourse(new Course("Computer Science", "IT"));
+//            student.enrolToCourse(new Course("Spring Date JPA", "IT"));
             //StudentIdCard studentIdCard =  new StudentIdCard("123456789",student);
            // StudentAccount studentAccount = new StudentAccount("qwer1234",student);
             studentRepository.save(student);
