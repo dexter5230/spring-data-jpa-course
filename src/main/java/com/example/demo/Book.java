@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
+@Deprecated()
 @Entity(name = "Book")
 @Table(name = "book")
 public class Book {
@@ -68,7 +68,7 @@ public class Book {
                 "book_id=" + book_id +
                 ", bookName='" + bookName + '\'' +
                 ", createAt=" + createAt +
-                ", student=" + student +
+                ", com.example.demo.student=" + student +
                 '}';
     }
 

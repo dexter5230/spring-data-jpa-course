@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
-
+@Deprecated
 public interface Repository extends JpaRepository <StudentAccount, Long> {
     @Query ("SELECT u FROM StudentAccount u WHERE u.id = :id")
     Optional<Student> findStudentAccountById(@Param("id") Long id);

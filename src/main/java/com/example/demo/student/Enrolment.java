@@ -1,40 +1,36 @@
-package com.example.demo;
+package com.example.demo.student;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
-@Deprecated
-@Entity(name = "Enrolment")
-@Table (name = "enrolment")
+
+@Entity(name = "EnrolmentV1")
+@Table(name = "enrolment_v1")
 public class Enrolment {
     @EmbeddedId
     private EnrolmentId enrolmentId;
 
-    @ManyToOne
-    @MapsId ("studentId")
-    @JoinColumn(name = "student_id", foreignKey = @ForeignKey(name = "student_id_fk"))
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId("studentId")
+    @JoinColumn (name = "student_id", foreignKey = @ForeignKey(name = "student_id_fk"))
     private Student student;
-    @ManyToOne
-    @MapsId ("courseId")
-    @JoinColumn(name = "course_id", foreignKey = @ForeignKey (name = "course_id_fk"))
-    private Course course;
 
-    @Column (name = "create_time", nullable = false, updatable = false)
-    private LocalDateTime createTime;
-    public Enrolment(Student student, Course course) {
-        this.student = student;
-        this.course = course;
-        createTime = LocalDateTime.now();
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId ("courseId")
+    @JoinColumn (name = "course_id", foreignKey = @ForeignKey(name = "course_id_fk"))
+    private Course course;
 
     public Enrolment(EnrolmentId enrolmentId, Student student, Course course) {
         this.enrolmentId = enrolmentId;
         this.student = student;
         this.course = course;
-        this.createTime = LocalDateTime.now();
     }
 
-
     public Enrolment() {
+    }
+
+    public Enrolment(Student student, Course course) {
+        this.student = student;
+        this.course = course;
+        this.enrolmentId = new EnrolmentId(student.getStudentId(), course.getCourseId());
     }
 
     public EnrolmentId getEnrolmentId() {

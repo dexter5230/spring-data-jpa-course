@@ -3,7 +3,7 @@ package com.example.demo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
+@Deprecated
 @Entity(name = "StudentAccount")
 @Table(name  = "student_account")
 public class StudentAccount {

@@ -3,7 +3,7 @@ package com.example.demo;
 import javax.persistence.*;
 
 import static javax.persistence.GenerationType.SEQUENCE;
-
+@Deprecated
 @Entity(name = "StudentIdCard")
 @Table(name = "student_id_card",
         uniqueConstraints = {@UniqueConstraint(name = "unique_student_card_number", columnNames = "card_number")})

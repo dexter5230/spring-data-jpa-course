@@ -5,7 +5,7 @@ import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@Deprecated
 @Entity(name = "Student")
 @Table (name = "student",
         uniqueConstraints = @UniqueConstraint(name = "student_email_unique", columnNames = {"email"})

@@ -1,15 +1,15 @@
-package com.example.demo;
+package com.example.demo.student;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
-@Deprecated
+
 @Embeddable
 public class EnrolmentId implements Serializable {
-    @Column (name = "student_id")
+    @Column
     private Long studentId;
-    @Column (name = "course_id")
+    @Column
     private Long courseId;
 
     public EnrolmentId(Long studentId, Long courseId) {
@@ -18,6 +18,7 @@ public class EnrolmentId implements Serializable {
     }
 
     public EnrolmentId() {
+
     }
 
     public Long getStudentId() {
@@ -47,5 +48,13 @@ public class EnrolmentId implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(studentId, courseId);
+    }
+
+    @Override
+    public String toString() {
+        return "EnrolmentId{" +
+                "studentId=" + studentId +
+                ", courseId=" + courseId +
+                '}';
     }
 }

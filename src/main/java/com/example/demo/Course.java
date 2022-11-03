@@ -8,6 +8,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "Course")
 @Table(name = "course")
+@Deprecated
 public class Course {
     @Id
     @SequenceGenerator(name = "course_id_generator", sequenceName = "course_id_generator", allocationSize = 1)
